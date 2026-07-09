@@ -24,6 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "MPU6050.h"
+#include "BMP390.h"
+#include "BMP390_dev.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -92,19 +94,25 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  MPU6050_init();
+
+//  MPU6050_init();
+  uint8_t restl = BMP390_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  //	  XYZ output;
+	  //	  MPU6050_Read_Accel(&output);
+	  //	  x = output.x;
+	  //	  y = output.y;
+	  //	  z = output.z;
+	  struct bmp3_data tmp_ps;
+	  int8_t res = BMP390_read(&tmp_ps);
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
-	  XYZ output;
-	  MPU6050_Read_Accel(&output);
-	  x = output.x;
-	  y = output.y;
-	  z = output.z;
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
